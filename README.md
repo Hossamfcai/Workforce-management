@@ -1,3 +1,69 @@
+To login
+Username: emilys
+password: emilyspass
+
+# PortalCore — Workforce Management Portal
+
+A responsive workforce management web application that allows administrators to manage employees, departments, and task assignments through a secure, role-protected dashboard.
+
+Technologies
+
+Framework | Angular (NgModule architecture, non-standalone)
+Language | TypeScript
+Styling | Bootstrap 5
+Icons | Bootstrap Icons
+Forms | Angular Reactive Forms & Template-driven Forms
+HTTP | Angular HttpClient |
+Auth API | DummyJSON (`https://dummyjson.com/user/login`)
+Persistence | Browser localStorage
+
+---
+
+Features
+
+Authentication
+
+- Login form built with Angular Reactive Forms
+- JWT access token stored in localStorage on successful login
+- Inline error alert displayed on invalid credentials
+
+Route Guards
+
+- AuthGuard — blocks unauthenticated users from accessing the dashboard and redirects them to `/login`
+- LoginRedirectGuard — prevents already-authenticated users from revisiting the login page
+
+Dashboard
+
+- Persistent sidebar navigation with active link highlighting
+- Responsive mobile toggle for the sidebar
+- Statistics bar always visible showing live KPIs: total employees, total departments, active tasks, and task completion rate — all computed from localStorage
+
+Employee Module
+
+- Full employee directory table
+- Add new employees via a validated modal form
+- Edit existing employee details
+- Delete employees with a confirmation modal
+- Real-time search by name or email
+- Filter by department
+- Sort by name (A–Z) or by status
+
+Department Module
+
+- Card grid view of all departments
+- Displays member count, description, and budget utilisation per department
+- Budget highlighted in red when utilisation reaches 90% or above
+- Add new departments via a validated modal form with a live character counter on the description field
+
+Task Assignment Module
+
+- Task board table showing task name, assigned employee, department, due date, and status
+- Tasks automatically sorted by workflow priority: To Do → In Progress → Done
+- Status badges colour-coded per state
+- Assigned employee details (name, email, department) resolved dynamically by employee ID
+- Add new tasks via a modal form with employee dropdown populated from the current employee list
+- Client-side pagination — 4 tasks per page
+
 # WorkforceManagement
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.3.
