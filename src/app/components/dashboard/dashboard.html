@@ -1,0 +1,78 @@
+<aside
+  class="sidebar d-none d-lg-flex flex-column"
+  id="sidebarMenu"
+  [class.show-mobile-sidebar]="isSidebarOpen"
+>
+  <div
+    class="p-3 text-white border-bottom border-secondary d-flex align-items-center justify-content-between"
+  >
+    <span class="fs-5 fw-bold"><i class="bi bi-layers-half me-2"></i>PortalCore</span>
+    <button class="btn btn-sm btn-dark d-lg-none" text-white (click)="toggleSidebar()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+  </div>
+  <ul class="nav flex-column mt-3 flex-grow-1">
+    <li class="nav-item">
+      <a
+        routerLink="/dashboard/dashboardSection"
+        class="nav-link"
+        routerLinkActive="active"
+        (click)="isSidebarOpen = false"
+        ><i class="bi bi-speedometer2"></i> Dashboard</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/dashboard/employee"
+        routerLinkActive="active"
+        class="nav-link"
+        (click)="isSidebarOpen = false"
+        ><i class="bi bi-people"></i> Employees</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/dashboard/departments"
+        routerLinkActive="active"
+        class="nav-link"
+        (click)="isSidebarOpen = false"
+        ><i class="bi bi-building"></i> Departments</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        routerLink="/dashboard/task"
+        routerLinkActive="active"
+        class="nav-link"
+        (click)="isSidebarOpen = false"
+        ><i class="bi bi-kanban"></i> Tasks Board</a
+      >
+    </li>
+  </ul>
+  <div class="p-3 border-top border-secondary text-white-50 fs-7">
+    <small>Logged in as: <strong>Admin</strong></small>
+  </div>
+  <button
+    type="button"
+    class="btn btn-outline-danger btn-sm w-100 text-start d-flex align-items-center gap-2 mt-1 py-1.5"
+    (click)="onLogout()"
+  >
+    <i class="bi bi-box-arrow-left"></i> Sign Out
+  </button>
+</aside>
+
+<div class="main-wrapper d-flex flex-column">
+  <nav
+    class="navbar navbar-expand-lg navbar-white bg-white border-bottom sticky-top px-4 py-2 d-flex d-lg-none"
+  >
+    <div class="container-fluid p-0">
+      <button class="btn btn-outline-dark d-lg-none me-3" type="button" (click)="toggleSidebar()">
+        <i class="bi bi-list"></i>
+      </button>
+    </div>
+  </nav>
+  <main class="p-4 flex-grow-1">
+    <app-statistics-component></app-statistics-component>
+    <router-outlet></router-outlet>
+  </main>
+</div>

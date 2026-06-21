@@ -1,0 +1,164 @@
+<section id="departments" class="mb-5">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h5 class="fw-semibold text-light mb-0">Organization Departments</h5>
+    <button
+      class="btn btn-primary d-flex align-items-center gap-2"
+      data-bs-toggle="modal"
+      data-bs-target="#addDeptModal"
+    >
+      <i class="bi bi-plus-lg"></i> Add Department
+    </button>
+  </div>
+  <div class="row g-4">
+    <div class="col-12 col-md-6 col-xl-4" *ngFor="let dep of departmentsList">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h6 class="card-title fw-bold text-dark mb-0 fs-5">{{ dep.name }}</h6>
+            <span class="badge bg-primary">{{ dep.members }} Active Members</span>
+          </div>
+          <p class="text-muted small">
+            {{ dep.description }}
+          </p>
+          <div class="border-top pt-3 d-flex justify-content-between align-items-center">
+            <span class="small text-muted">Budget Utilization:</span>
+            <span
+              [class]="dep.budget >= 90 ? 'fw-semibold text-danger' : 'fw-semibold text-dark'"
+              >{{ dep.budget }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- addForm -->
+  <div
+    class="modal fade"
+    id="addDeptModal"
+    tabindex="-1"
+    aria-labelledby="addDeptModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-semibold text-dark" id="addDeptModalLabel">
+            Create New Department
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <div class="modal-body text-dark">
+          <form [formGroup]="deptForm">
+            <div class="mb-3">
+              <label class="form-label small fw-semibold">Department Title</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name"
+                placeholder="Operations, Finance..."
+                [ngClass]="{
+                  'is-invalid': deptForm.get('name')?.touched && deptForm.get('name')?.invalid,
+                }"
+              />
+              <div class="invalid-feedback">
+                <span *ngIf="deptForm.get('name')?.errors?.['required']"
+                  >Department title is required.</span
+                >
+                <span *ngIf="deptForm.get('name')?.errors?.['minlength']"
+                  >Title must be at least 3 characters long.</span
+                >
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-semibold">Initial Active Staff Count</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="members"
+                [ngClass]="{
+                  'is-invalid':
+                    deptForm.get('members')?.touched && deptForm.get('members')?.invalid,
+                }"
+              />
+              <div class="invalid-feedback">
+                <span *ngIf="deptForm.get('members')?.errors?.['required']"
+                  >Staff count is required.</span
+                >
+                <span *ngIf="deptForm.get('members')?.errors?.['min']"
+                  >Staff count must be at least 1.</span
+                >
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-semibold"
+                >Functional Mission Statement / Description</label
+              >
+              <textarea
+                class="form-control"
+                formControlName="description"
+                rows="3"
+                placeholder="Brief overview..."
+                [ngClass]="{
+                  'is-invalid':
+                    deptForm.get('description')?.touched && deptForm.get('description')?.invalid,
+                }"
+              ></textarea>
+              <div class="invalid-feedback">
+                <span *ngIf="deptForm.get('description')?.errors?.['required']"
+                  >Description statement is required.</span
+                >
+                <span *ngIf="deptForm.get('description')?.errors?.['maxlength']"
+                  >Description cannot exceed 200 characters.</span
+                >
+              </div>
+              <div class="text-end text-muted small mt-1">
+                {{ deptForm.get('description')?.value?.length || 0 }}/200 characters
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-semibold"
+                >Allocated Budget Cap ({{ deptForm.get('budget')?.value }}%)</label
+              >
+              <input
+                type="range"
+                class="form-range"
+                formControlName="budget"
+                min="0"
+                max="100"
+                [ngClass]="{
+                  'is-invalid': deptForm.get('budget')?.touched && deptForm.get('budget')?.invalid,
+                }"
+              />
+              <div class="invalid-feedback">
+                Please allocate a valid budget percentage framework baseline.
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            [disabled]="deptForm.invalid"
+            (click)="onAddDepartment()"
+          >
+            Save Department
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- addForm -->
+</section>

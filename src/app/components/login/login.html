@@ -1,0 +1,33 @@
+<div class="form-container">
+  <form class="shadow-lg" [formGroup]="loginForm" (ngSubmit)="submitForm()">
+    <div class="d-flex flex-column align-items-center mb-3 border-bottom border-white">
+      <h1 class="mb-2">Sign in to your portal</h1>
+      <p>Manage your team from one place.</p>
+    </div>
+    <div class="">
+      <div class="my-3">
+        <label for="email">Email</label>
+        <div class="input-group mb-3" id="email">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="example@gmail.com"
+            formControlName="username"
+          />
+        </div>
+      </div>
+      <div class="my-3">
+        <label for="password">Password</label>
+        <div class="input-group mb-3" id="password">
+          <input type="password" class="form-control" placeholder="" formControlName="password" />
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-4">
+        <button type="submit" class="btn btn-primary">Sign in</button>
+      </div>
+    </div>
+    <div *ngIf="errMassage.show" class="alert alert-danger mt-4" role="alert">
+      {{ errMassage.msg }}
+    </div>
+  </form>
+</div>
